@@ -1,0 +1,61 @@
+# =============================================================================
+# AML Alert Triage — pipeline parameters
+# Every assumption that drives a headline number lives here, not in the code.
+# Reviewers should be able to audit the business case by reading this file.
+# =============================================================================
+
+seed: 20260723
+
+simulation:
+  n_customers: 4000
+  start_date: "2025-09-01"
+  n_days: 180
+  # Share of customers engaged in illicit activity. Real-world prevalence is
+  # unknowable; published estimates of laundered funds run 2-5% of global GDP.
+  # 1.2% of customers is a deliberately conservative mid-range choice.
+  illicit_customer_rate: 0.012
+
+thresholds:
+  # FINTRAC Large Cash Transaction Report threshold (CAD).
+  lctr_threshold: 10000
+  # Band a structuring typology deliberately stays under.
+  structuring_band_low: 8000
+  structuring_band_high: 9999
+
+split:
+  # Temporal split. Alerts are time-ordered; a random split would leak future
+  # information about a customer into the training set via their own history.
+  train_end_day: 120
+  valid_end_day: 150
+  # days 151-180 = holdout, touched exactly once
+
+model:
+  n_estimators: 400
+  learning_rate: 0.05
+  num_leaves: 31
+  min_child_samples: 40
+  class_weight: balanced
+
+evaluation:
+  bootstrap_iterations: 1000
+  bootstrap_ci: 0.95
+  # Hard acceptance criterion. The model deprioritises; it never auto-closes.
+  # Threshold is chosen on VALIDATION at 100% recall, then applied unchanged
+  # to holdout. Holdout recall is reported as-measured, not as-targeted.
+  required_validation_recall: 1.0
+
+cost_benefit:
+  # Fully-loaded cost of an AML investigator in the GTA. Base salary for an
+  # AML Analyst runs roughly 65-85k; loaded at ~1.4x for benefits, overhead,
+  # supervision and technology. 105000 / 1800 productive hours = 58.33/hr.
+  investigator_base_salary_cad: 75000
+  loading_factor: 1.4
+  productive_hours_per_year: 1800
+  # Median disposition time for a level-1 alert review.
+  minutes_per_alert_l1: 22
+  # Implementation cost side of the business case (Deloitte reviewer objection).
+  implementation:
+    build_effort_person_days: 45
+    blended_day_rate_cad: 900
+    annual_platform_cost_cad: 18000
+    annual_model_governance_cost_cad: 25000

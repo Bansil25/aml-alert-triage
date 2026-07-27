@@ -1,0 +1,169 @@
+{
+  "split_days": {
+    "train_end_day": 120,
+    "valid_end_day": 150
+  },
+  "results": {
+    "baseline_all_alerts": {
+      "description": "Current state: every rule alert is worked at equal priority.",
+      "holdout": {
+        "recall": 1.0,
+        "volume_reduction_pct": 0.0,
+        "precision_at_priority": 0.028174765210289915
+      }
+    },
+    "baseline_random": {
+      "description": "Random score. Sanity floor -- any real model must beat this.",
+      "holdout": {
+        "n_alerts": 4898,
+        "n_reviewed_at_priority": 4897,
+        "n_deferred": 1,
+        "volume_reduction_pct": 0.02041649652919559,
+        "recall": 1.0,
+        "true_positives_total": 138,
+        "true_positives_missed": 0,
+        "precision_at_priority": 0.028180518684909128,
+        "baseline_precision": 0.028174765210289915
+      }
+    },
+    "logistic_regression": {
+      "description": "Regularised logistic regression. Fully interpretable reference model.",
+      "validation": {
+        "pr_auc": 0.7071231190404342,
+        "roc_auc": 0.9471274337150851
+      },
+      "holdout": {
+        "n_alerts": 4898,
+        "n_reviewed_at_priority": 4120,
+        "n_deferred": 778,
+        "volume_reduction_pct": 15.88403429971417,
+        "recall": 1.0,
+        "true_positives_total": 138,
+        "true_positives_missed": 0,
+        "precision_at_priority": 0.03349514563106796,
+        "baseline_precision": 0.028174765210289915,
+        "pr_auc": 0.5156416436693664,
+        "roc_auc": 0.9509377664109121
+      }
+    },
+    "gradient_boosted": {
+      "description": "LightGBM. Primary model.",
+      "threshold_source": "highest score at 100% recall on VALIDATION window",
+      "threshold": 2.2997537325884263e-08,
+      "validation": {
+        "n_alerts": 6597,
+        "n_reviewed_at_priority": 6015,
+        "n_deferred": 582,
+        "volume_reduction_pct": 8.822191905411552,
+        "recall": 1.0,
+        "true_positives_total": 430,
+        "true_positives_missed": 0,
+        "precision_at_priority": 0.0714879467996675,
+        "baseline_precision": 0.06518114294376232,
+        "pr_auc": 0.8585452031187449,
+        "roc_auc": 0.9889271855826774
+      },
+      "holdout": {
+        "n_alerts": 4898,
+        "n_reviewed_at_priority": 4389,
+        "n_deferred": 509,
+        "volume_reduction_pct": 10.391996733360555,
+        "recall": 1.0,
+        "true_positives_total": 138,
+        "true_positives_missed": 0,
+        "precision_at_priority": 0.03144224196855776,
+        "baseline_precision": 0.028174765210289915,
+        "pr_auc": 0.6941913220139662,
+        "roc_auc": 0.9853900255754475,
+        "recall_ci": [
+          1.0,
+          1.0
+        ],
+        "volume_reduction_ci": [
+          9.595242956308699,
+          11.269906084115966
+        ]
+      }
+    },
+    "production_model": {
+      "selected": "logistic_regression",
+      "selection_basis": "volume deferred at 100% validation recall on the holdout window",
+      "gradient_boosted_deferred_pct": 10.391996733360555,
+      "logistic_deferred_pct": 15.88403429971417
+    },
+    "tradeoff_curve_prospective": [
+      {
+        "recall_target": 1.0,
+        "threshold": 3.5364926405394375e-05,
+        "validation_recall": 1.0,
+        "holdout_recall": 1.0,
+        "holdout_alerts_reviewed": 4120,
+        "holdout_volume_deferred_pct": 15.88403429971417,
+        "holdout_precision_in_review": 0.03349514563106796
+      },
+      {
+        "recall_target": 0.99,
+        "threshold": 0.003040120119932279,
+        "validation_recall": 0.9906976744186047,
+        "holdout_recall": 0.9782608695652174,
+        "holdout_alerts_reviewed": 2205,
+        "holdout_volume_deferred_pct": 54.98162515312372,
+        "holdout_precision_in_review": 0.061224489795918366
+      },
+      {
+        "recall_target": 0.98,
+        "threshold": 0.007277447749074662,
+        "validation_recall": 0.9813953488372092,
+        "holdout_recall": 0.9710144927536232,
+        "holdout_alerts_reviewed": 1764,
+        "holdout_volume_deferred_pct": 63.98530012249898,
+        "holdout_precision_in_review": 0.07596371882086168
+      },
+      {
+        "recall_target": 0.95,
+        "threshold": 0.015465055884023571,
+        "validation_recall": 0.9511627906976744,
+        "holdout_recall": 0.9637681159420289,
+        "holdout_alerts_reviewed": 1347,
+        "holdout_volume_deferred_pct": 72.49897917517355,
+        "holdout_precision_in_review": 0.09873793615441723
+      },
+      {
+        "recall_target": 0.9,
+        "threshold": 0.08590966462585796,
+        "validation_recall": 0.9,
+        "holdout_recall": 0.9057971014492754,
+        "holdout_alerts_reviewed": 688,
+        "holdout_volume_deferred_pct": 85.95345038791343,
+        "holdout_precision_in_review": 0.1816860465116279
+      }
+    ],
+    "tier_policy_holdout": [
+      {
+        "tier": "T1_same_day",
+        "alerts": 489,
+        "share_of_volume_pct": 9.983666802776643,
+        "true_positives": 112,
+        "share_of_true_positives_pct": 81.15942028985508,
+        "precision_pct": 22.903885480572598
+      },
+      {
+        "tier": "T2_five_day",
+        "alerts": 1470,
+        "share_of_volume_pct": 30.01224989791752,
+        "true_positives": 23,
+        "share_of_true_positives_pct": 16.666666666666664,
+        "precision_pct": 1.5646258503401362
+      },
+      {
+        "tier": "T3_thirty_day",
+        "alerts": 2939,
+        "share_of_volume_pct": 60.00408329930585,
+        "true_positives": 3,
+        "share_of_true_positives_pct": 2.1739130434782608,
+        "precision_pct": 0.10207553589656344
+      }
+    ]
+  },
+  "n_features": 81
+}

@@ -1,0 +1,53 @@
+name: pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # The warehouse build is itself a test: build_warehouse.py exits non-zero
+      # if any blocking data quality check fails, so a regression in the
+      # cleaning logic fails the build before pytest ever runs.
+      - name: Generate data
+        run: python src/generate_data.py
+
+      - name: Build warehouse (enforces blocking DQ controls)
+        run: python src/build_warehouse.py
+
+      - name: Train and evaluate
+        run: python src/train_model.py
+
+      - name: Scoring path and explainability
+        run: python src/explain.py
+
+      - name: Rule analysis and business case
+        run: |
+          python src/rule_analysis.py
+          python src/cost_benefit.py
+
+      - name: Tests
+        run: pytest -q
+
+      - name: Publish metrics as build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-outputs
+          path: |
+            outputs/metrics.json
+            outputs/cost_benefit.json
+            outputs/rule_effectiveness.csv
+            outputs/rule_overlap.csv

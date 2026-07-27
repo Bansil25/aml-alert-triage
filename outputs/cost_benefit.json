@@ -1,0 +1,30 @@
+{
+  "assumptions": {
+    "loaded_hourly_rate_cad": 58.33,
+    "minutes_per_alert_l1": 22,
+    "annual_alert_volume_est": 59592,
+    "holdout_window_days": 30,
+    "recall_policy": 1.0,
+    "holdout_recall_achieved_pct": 100.0,
+    "deferred_share_pct": 15.88,
+    "deferred_work_reduction_factor": 0.6
+  },
+  "benefit": {
+    "hours_freed_deferral": 2082,
+    "value_deferral_cad": 121476,
+    "hours_freed_prioritisation": 798,
+    "value_prioritisation_cad": 46551,
+    "gross_annual_benefit_cad": 168027
+  },
+  "cost": {
+    "one_off_build_cad": 40500,
+    "annual_platform_cad": 18000,
+    "annual_model_governance_cad": 25000,
+    "total_annual_run_cad": 43000
+  },
+  "result": {
+    "net_annual_benefit_cad": 125027,
+    "payback_months": 3.9,
+    "first_year_net_cad": 84527
+  }
+}

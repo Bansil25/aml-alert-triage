@@ -1,0 +1,15 @@
+country_code,risk_tier,is_high_risk
+CA,domestic,0
+US,standard,0
+GB,standard,0
+FR,standard,0
+DE,standard,0
+AU,standard,0
+JP,standard,0
+NL,standard,0
+CH,standard,0
+XA,high_risk,1
+XB,high_risk,1
+XC,high_risk,1
+XD,high_risk,1
+UNK,standard,0

@@ -1,0 +1,14 @@
+run_ts,check_id,check_name,dimension,severity,metric_value,threshold,status,is_pass
+2026-07-25 01:41:15,DQ01,Row count reconciliation: staging = fact + rejected + duplicates,reconciliation,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:15,DQ02,Control total reconciliation on accepted transaction value,reconciliation,blocking,0.0,0.01,PASS,1
+2026-07-25 01:41:20,DQ03,Transaction id uniqueness in fact_transaction,uniqueness,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:20,DQ04,Duplicate records detected and removed at load,uniqueness,warning,1868.0,1.0,PASS,1
+2026-07-25 01:41:20,DQ05,Referential integrity: fact_transaction to dim_account,integrity,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:21,DQ06,Referential integrity: fact_transaction to dim_customer,integrity,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:21,DQ07,Referential integrity: fact_alert to dim_customer,integrity,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:21,DQ08,Transaction amount is strictly positive,validity,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:21,DQ09,Direction conforms to domain (credit/debit),validity,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:21,DQ10,Counterparty country conforms to dim_country,validity,blocking,0.0,0.0,PASS,1
+2026-07-25 01:41:21,DQ11,Share of wire transactions with unknown counterparty jurisdiction,completeness,warning,2.8043,5.0,PASS,1
+2026-07-25 01:41:21,DQ12,Calendar completeness: no missing activity days,completeness,warning,0.0,0.0,PASS,1
+2026-07-25 01:41:21,DQ13,Customer master row count reconciliation,reconciliation,blocking,0.0,0.0,PASS,1

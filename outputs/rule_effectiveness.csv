@@ -1,0 +1,9 @@
+rule_id,rule_name,severity,alerts,true_positives,customers_alerted,precision_pct,false_positives,investigator_hours,annual_cost_cad,illicit_customers_detected,sole_detector_for,recommendation
+R005,Volume velocity spike,medium,10820,563,745,5.2,10257,3967.3,462852.0,31,0,RETAIN - contributes detection at acceptable precision
+R002,LCTR aggregation avoidance,high,7643,195,332,2.55,7448,2802.4,326947.0,28,0,RECALIBRATE - low precision and fully covered by other rules
+R004,High-risk jurisdiction wire,medium,5908,149,621,2.52,5759,2166.3,252735.0,28,1,RETAIN - sole detector for 1 illicit customer(s); cannot be retired at any precision
+R008,Sustained near-threshold cash,medium,1323,137,230,10.36,1186,485.1,56595.0,22,0,RETAIN - contributes detection at acceptable precision
+R003,Rapid movement of funds,high,1282,98,618,7.64,1184,470.1,54845.0,21,0,RETAIN - contributes detection at acceptable precision
+R006,Round-value transfer clustering,medium,950,99,225,10.42,851,348.3,40635.0,7,0,RETAIN - contributes detection at acceptable precision
+R001,Near-threshold cash clustering,high,350,77,120,22.0,273,128.3,14968.0,13,0,RETAIN - contributes detection at acceptable precision
+R007,Dormant account reactivation,low,0,0,0,0.0,0,0.0,0.0,0,0,RETIRE - has produced zero alerts; no detection value

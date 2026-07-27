@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Generated raw data and the database are rebuilt from seed, not committed.
+data/*.csv
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# The trained model binary is rebuilt; the CSV/JSON outputs and the Power BI
+# exports ARE committed on purpose, so a reviewer can open the dashboard sources
+# and the metrics without running the ~4-minute pipeline first.
+outputs/model.pkl
+
+# Power BI working files
+*.pbix.tmp
+~$*
