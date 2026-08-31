@@ -1,10 +1,5 @@
 # DAX measures
 
-Paste into a measure table (`_Measures`) in Power BI Desktop. Written as
-measures rather than calculated columns throughout — calculated columns are
-materialised into the model at refresh and are the usual reason a report that
-worked in development crawls in production.
-
 ---
 
 ## Alert volume
